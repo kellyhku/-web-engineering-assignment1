@@ -1,0 +1,55 @@
+<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" /> 
+
+
+<!--<p><a href="--><?php //echo $this->url(
+//    array(
+//        'controller' => 'books',
+//        'action'     => 'insert',
+//     'default',
+//    true)) ?><!--">Add a new Book</a></p>-->
+
+ <table> 
+  <tr>  
+   <td>
+  <h1><?=$this->escape($this->title);?></h1>
+  <h2><?=$this->escape($this->description);?></h2>
+  <table id="searchTable" class="searchTable">
+      <tr>
+       <td class="title" colspan="2"><a name="Results">Book Listing</a></td>
+      </tr>
+  <?
+		foreach($this->books as $book ){ ?>
+			<tr>
+       <td class="tabletab">Title </td><td class="value"><a href="./detail/id/<?= $book->id ?>"><?= $book->name?></a>&nbsp;</td>
+      </tr>
+      <tr>
+       <td class="tabletab">Author </td><td class="value"><?=$book->author?>&nbsp;</td>
+      </tr>
+      <tr>
+       <td class="tabletab">Price </td><td class="value"><?=$book->price?>&nbsp;</td>
+      </tr>
+      <tr>
+       <td class="tabletab">Category </td><td class="value"><?=$book->categoryId?>&nbsp;</td>
+      </tr>
+      <tr>
+       <td class="tabletab">Image URL </td><td class="value"><img id="myImg" width="100" src="/<?= $book->imageUrl ?>"/>&nbsp;</td>
+      </tr>
+      <tr>
+       <td class="title" colspan="2" class="value">&nbsp;</td>
+      </tr>
+  <? } ?>
+   </table>
+		</td> 
+  </tr> 
+ </table>
+
+    <script>
+
+        $( "#searchTable img").on('click', function() {
+                myWindow = window.open('', 'header', 'menubar=0', 'toolbar=0');
+                myWindow.document.write("<img alt='ALTERNATIVE' src='"+$(this).attr('src')+"' /><a href='javascript:close();'>Close window</a>");
+        });
+    </script>
+
+</center>
+

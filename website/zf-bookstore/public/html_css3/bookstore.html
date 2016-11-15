@@ -1,0 +1,468 @@
+<!DOCTYPE html> <!-- The new doctype -->
+<html>
+    <head>
+     
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        
+        <title>Online Book Store</title>
+        
+        <link rel="stylesheet" type="text/css" href="../css/styles.css" />
+      <script type="text/javascript">	
+			function currency_translate2(){
+				var currency=document.getElementById('currency_convert2');
+  			
+  			if(currency.value!="no"){
+      		currency_value=currency.value;
+      		//Get Currency Type
+      		var code=currency_value.substring(currency_value.length-3,currency_value.length);
+      		//Get the Exchange Rate
+      		var currency=currency_value.substring(0,currency_value.length-4);
+      		var price_now=document.getElementById('newPrice_label');
+      		var HK_price=document.getElementById('HK_price');
+      		var final_price=currency*HK_price.value;
+      		
+      		price_now.innerHTML=code+'$'+final_price.toFixed(2); // ** Update the Price in another Currency
+  			}
+  		}
+var timerlen = 5;
+var slideAniLen = 200;
+
+var timerID = new Array();
+var startTime = new Array();
+var obj = new Array();
+var endHeight = new Array();
+var moving = new Array();
+var dir = new Array();
+
+var currTId = null;
+var currDId = null;
+var currTag0 = null;
+
+function slidedown(objname){
+        if(moving[objname])
+                return;
+
+        if(document.getElementById(objname).style.display != "none")
+                return; // cannot slide down something that is already visible
+
+        moving[objname] = true;
+        dir[objname] = "down";
+
+        startslide(objname);
+}
+
+function slideup(objname){
+
+        if(moving[objname])
+                return;
+
+        if(document.getElementById(objname).style.display == "none")
+                return; // cannot slide up something that is already hidden
+
+        moving[objname] = true;
+        dir[objname] = "up";
+        startslide(objname);
+}
+
+function startslide(objname){
+		obj[objname] = document.getElementById(objname);
+
+		if(dir[objname] == "down"){
+			obj[objname].style.height = "1px";
+		}
+
+		obj[objname].style.display = "block";
+		startTime[objname] = (new Date()).getTime();
+
+		endHeight[objname] = obj[objname].scrollHeight;
+		timerID[objname] = setInterval('slidetick(\'' + objname + '\');',timerlen);
+}
+
+function slidetick(objname){
+        var elapsed = (new Date()).getTime() - startTime[objname];
+        if (elapsed > slideAniLen)
+                endSlide(objname)
+        else {
+                var d =Math.round(elapsed / slideAniLen * endHeight[objname]);
+                if(dir[objname] == "up")
+                        d = endHeight[objname] - d;
+
+                obj[objname].style.height = d + "px";
+        }
+
+        return;
+}
+
+function endSlide(objname){
+        clearInterval(timerID[objname]);
+
+        if(dir[objname] == "up")
+                obj[objname].style.display = "none";
+
+        obj[objname].style.height = endHeight[objname] + "px";
+
+        delete(moving[objname]);
+        delete(timerID[objname]);
+        delete(startTime[objname]);
+        delete(endHeight[objname]);
+        delete(obj[objname]);
+        delete(dir[objname]);
+
+        return;
+}
+
+function singleLink_toggleSlide(objname){
+  if(document.getElementById(objname).style.display == "none"){
+    // div is hidden, so let's slide down
+    slidedown(objname);
+  }else{
+    // div is not hidden, so slide up
+    slideup(objname);
+  }
+}
+
+function changeBookDisplay(obj,tag,id) {
+	var first_id=id.toString().substr(0,1);	
+		
+	var objname='bestSeller_content'+'_'+first_id;
+	var obj_obj=document.getElementById(objname);
+    if(obj_obj!=null)obj_obj.style.height=obj_obj.scrollHeight;
+    
+	if(currTId!=null){
+		if(currTag!=null) {
+			if(returnElement(currTId)) returnElement(currTId).style.display="block";
+			if(returnElement(currDId)) returnElement(currDId).style.display="none";
+			
+			if(currTag!=tag) {
+				if(returnElement(currTId)) returnElement(currTId).style.display="block";
+				if(returnElement(currDId)) returnElement(currDId).style.display="none";
+				var currTIdReset = currTag + "1";
+				var currDIdReset = currTag + "_Over1";
+				if(returnElement(currTIdReset)) returnElement(currTIdReset).style.display="none";
+				if(returnElement(currDIdReset)) returnElement(currDIdReset).style.display="block";
+			}
+		}
+	}
+
+	var Tid = tag + id;
+	var Did = tag + "_Over" + id;
+
+	if(returnElement(Tid)) returnElement(Tid).style.display="none";
+	if(returnElement(Did)) returnElement(Did).style.display="block";
+
+	currTag = tag;
+	currTId = Tid;
+	currDId = Did;
+}
+
+function changeBookDisplay2(obj_id,tag,id,type){
+	var first_id=id.toString().substr(0,1);	//得到div的id
+	
+	var id = tag+first_id;
+	var overid =  tag+"_Over"+first_id;
+	
+	
+	
+	
+//	alert(thisid);
+	$(obj_id).hide();
+	
+	if(type == 1)
+		$(overid).show();
+	else
+		$(id).show();
+	
+}	  		
+</script>  
+        <!-- Internet Explorer HTML5 enabling code: -->
+        
+        <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        
+        <style type="text/css">
+        .clear {
+          zoom: 1;
+          display: block;
+        }
+        </style>
+
+        
+        <![endif]-->
+        
+    </head>
+    
+    <body>
+    	
+    	<section id="page"> <!-- Defining the #page section with the section tag -->
+    
+            <header> <!-- Defining the header section of the page with the appropriate tag -->
+            
+                <hgroup>
+                    <h1>Online Book Store</h1>                 
+                </hgroup>
+                                
+                <nav class="clear"> <!-- The nav link semantically marks your main site navigation -->
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#books">Books</a></li>
+						<li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            
+            </header>
+            
+            <section id="articles"> <!-- A new section with the articles -->
+
+				<!-- Article 1 start -->
+
+                <div class="line"></div>  <!-- Dividing line -->
+                
+                <article id="home"> <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
+                    <h2>Home</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    
+                    	<figure> <!-- The figure tag marks data (usually an image) that is part of the article -->
+	                    	<img src="images/reading.jpg" width="600" height="320" />
+                        </figure>                        
+                        <p>Welcome to our online bookstore!</p>
+						<p>
+						<video width="340" controls autoplay> 
+							<source src="./big_buck_bunny.mp4" type="video/mp4" />
+						</video>
+						</p>                        
+                    </div>
+					<a href="#" class="up">Go UP</a>
+                </article>
+                
+				<!-- Article 1 end -->
+
+
+				<!-- Article 2 start -->
+
+                <div class="line"></div>
+                
+                <article id="about">
+                    <h2>About us</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">
+                    	<figure>
+	                    	<img src="images/shop.jpg" width="620" height="340" />
+                        </figure>                        
+                        <p>We are an online book store. We have thousands of books in stock.
+						We can search the books by ISBN or author.
+						We accept Paypal and Visa Credit Cards.
+						We will ship the books within 1-2 business days.</p>
+                        
+                    </div>
+					<a href="#" class="up">Go UP</a>
+                </article>
+                
+				<!-- Article 2 end -->
+
+				<!-- Article 3 start -->
+
+                <div class="line"></div>
+                
+                <article id="books">
+                    <h2>Books</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">                    	
+   <table id="productInfo_table">
+	<tbody>
+		<tr>
+			<td class="productName" colspan="2">Core Java, Vol. 2: Advanced Features (8/e)</td>
+		</tr>		
+		<tr>
+			<td class="productLabel">Author</td>
+			<td class="productDesc">Cay S. Horstmann, Gary Cornell</td>
+		</tr>	
+		<tr>
+			<td class="productLabel">Publisher</td>
+			<td class="productDesc">Prentice Hall Press, Inc.</td>
+		</tr>
+		<tr>
+			<td class="productLabel">ISBN</td>
+			<td class="productDesc">9780132354790</td>
+		</tr>
+	 	<tr>
+			<td class="productLabel">Classification</td>
+			<td class="productDesc">Computer &amp; Information Technology > Programming </td>
+		</tr>
+		<tr>
+			<td class="productLabel">Price</td>
+			<td class="productDesc"><span id="newPrice_label">HK$385.00</span></td>
+		</tr>
+
+		<tr>
+			<td class="productLabel">Exchange Rate Reference</td>
+			<td class="productDesc">
+				<input type="hidden" id="HK_price" value="150.00"/> 
+					<select id="currency_convert2" name="currency_convert2" onchange="currency_translate2()" class="productInfo_currency_select">
+						<option value="no" selected="selected">Exchange Rate</option>
+						<option label="HKD" value="1.00000000HKD">HKD</option>
+						<option label="USD" value="0.12840000USD">USD</option>
+						<option label="RMB" value="0.89920002RMB">RMB</option>
+						<option label="TWD" value="3.90300012TWD">TWD</option>
+						<option label="JPY" value="13.17300034JPY">JPY</option>
+						<option label="CAD" value="0.12909999CAD">CAD</option>
+						<option label="EUR" value="0.08190000EUR">EUR</option>
+					</select>
+				
+			</td>
+		</tr>
+   	<tr>
+			<td class="productLabel">Stock Status</td>
+			<td class="productDesc">Out of Stock</td>
+		</tr>
+				<tr>
+			<td class="productLabel" colspan="2">
+				<a href="javascript:;" onmousedown="singleLink_toggleSlide('extraInfo_Area');" id="extraInfo_link"> 
+					<img src="./images/extraInfo_arrow.gif" width="15" height="14" id="extraInfo_img" alt="More Information"/>&nbsp; More information 
+				</a>
+			</td>
+		</tr>	
+		<tr>
+			<td class="productDesc" colspan="2">
+				<div id="extraInfo_Area" style="display: none; overflow: hidden;">
+				<table id="extraInfo_table">			
+					<tbody>
+						<tr>
+							<td class="productLabel">Language</td>
+							<td class="productDesc">English</td>
+						</tr>	
+						<tr>
+							<td class="productLabel">Pages</td>
+							<td class="productDesc">1056 pages</td>
+						</tr>
+				 		<tr>
+							<td class="productLabel">Edition</td>
+							<td class="productDesc">Eighth Edition</td>
+						</tr>
+						<tr>
+							<td class="productLabel">Binding</td>
+							<td class="productDesc">Paperback</td>
+						</tr>
+						<tr>
+							<td class="productLabel">Description</td>
+							<td class="productDesc">
+The revised edition of the classic Core Java, Volume II–Advanced Features, covers 
+advanced user-interface programming and the enterprise features of the Java SE 6 platform. 
+Like Volume I (which covers the core language and library features), this volume has been 
+updated for Java SE 6 and new coverage is highlighted throughout.
+							</td>
+						</tr>
+					</tbody>
+				</table>	
+			</div>
+			</td>
+		</tr> 
+		
+		<tr>
+			<td class="productImg" colspan="2">
+				<table>
+					<tbody>
+						<tr>
+							<td>
+									<div class="container_12" id="wrapper"> 
+							      <div class="grid_8" id="content">
+							       	<div class="grid_6 prefix_1 suffix_1" id="gallery"> 
+							        	
+							          <div id="pictures"> 
+							            <img src="images/9780132354790-12.png" alt="" /> 
+							            <img src="images/9780132354790-11.png" alt="" /> 
+							            <img src="images/9780132354790-10.png" alt="" /> 
+							            <img src="images/9780132354790-09.png" alt="" /> 
+							            <img src="images/9780132354790-08.png" alt="" /> 
+										<img src="images/9780132354790-07.png" alt="" /> 
+							            <img src="images/9780132354790-06.png" alt="" /> 
+							            <img src="images/9780132354790-05.png" alt="" /> 
+							            <img src="images/9780132354790-04.png" alt="" /> 
+							            <img src="images/9780132354790-03.png" alt="" /> 
+							            <img src="images/9780132354790-02.png" alt="" /> 
+							            <img src="images/9780132354790-01.png" alt="" /> 
+
+							            </div>           
+							          <div class="grid_3 alpha" id="prev"> 
+							            <a href="#previous">&laquo; Previous page</a>  
+							          </div> 
+							          <div class="grid_3 omega" id="next"> 
+							            <a href="#next">Next page &raquo;</a> 
+							          </div> 
+							        </div> 
+							        
+							      </div> 
+							    </div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+			</td>
+		</tr>
+		</tbody>
+</table>
+                    </div>
+					<a href="#" class="up">Go UP</a>
+                </article>
+                
+				<!-- Article 3 end -->
+				
+				<!-- Article 4 start -->
+
+                <div class="line"></div>
+                
+                <article id="contact">
+                    <h2>Contact us</h2>
+                    
+                    <div class="line"></div>
+                    
+                    <div class="articleBody clear">                    	
+                        
+                     <p>Please provide us your info so that we can contact you.</p>
+					<form>
+						<label for="contact_name">Name:</label>
+						<input id="contact_name" placeholder="Enter your name" autofocus/><br />
+						<label for="contact_email">E-mail:</label>
+						<input type="email" id="contact_email" placeholder="Enter your email address"/><br />   
+						Message:
+						<textarea id="message"></textarea><br/>
+						<input type="submit" value="submit"/>
+					</form>
+					                
+                    </div>
+					<a href="#" class="up">Go UP</a>
+                </article>
+                
+				<!-- Article 4 end -->
+
+            </section>
+
+        <footer> <!-- Marking the footer section -->
+
+           <div class="line"></div>
+           
+           <p>Copyright 2010 - online-bookstore.com</p> <!-- Change the copyright notice -->
+           
+           <a href="#" class="up">Go UP</a>
+
+        </footer>
+            
+		</section> <!-- Closing the #page section -->
+        
+        <!-- JavaScript Includes -->
+
+
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+        <script src="jquery.scrollTo-1.4.2/jquery.scrollTo-min.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>

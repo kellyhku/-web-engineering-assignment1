@@ -1,0 +1,45 @@
+
+<?php
+//session_start();
+//// Do Something
+//if (!empty($_session['id'])) {
+//
+//}else{
+//    header("Location: /auth/login"); /* Redirect browser */
+//    exit();
+//}
+?>
+<?php
+//
+//if (!empty($_session['id'])) {
+//
+//}else{
+//    header("Location: /auth/login"); /* Redirect browser */
+//    exit();
+//}
+
+?>
+
+<?php
+/**
+ * Created by PhpStorm.
+ * User: An
+ * Date: 2016/11/12
+ * Time: 12:47
+ */
+//$this->form->setAction($this->url());
+//echo $this->url();
+//echo $this->form;
+$this->form ->setAction($this->url());
+echo $this->form ;
+
+
+?>
+
+
+<p><a href="<?php echo $this->url(
+        array(
+            'controller' => 'auth',
+            'action'     => 'logout',
+            'default',
+            true)) ?>">Log out</a></p>

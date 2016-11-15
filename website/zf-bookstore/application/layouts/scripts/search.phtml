@@ -1,0 +1,98 @@
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+<aside>
+    <div id="tfheader1">
+        <form id="tfnewsearch" method="post" onsubmit="search1(); return false" >
+
+            <input type="text" class="tftextinput" name="name" id="name" maxlength="120">
+            <input type="submit" class="tfbutton" id="search">
+        </form>
+        <div class="tfclear"></div>
+    </div>
+</aside>
+
+<script type="text/javascript">
+
+    function search1(){
+
+
+        $.post("/search/search",
+            {name: $("#name").val()},
+            function (returnedData, status) {
+                var result = returnedData;
+                if (result != null) {
+                    var obj = JSON.parse(result);
+                    var string = "<tr><td>name</td><td>author</td><td>price</td><td>category</td><td>Image URL</td></tr>";
+                    for(var i = 0; i < obj.length; i++) {
+                        string += "<tr><td>"+obj[i]["name"]+"</td>";
+                        string += "<td>"+obj[i]["author"]+"</td>";
+                        string += "<td>"+obj[i]["price"]+"</td>";
+                        string += "<td>"+obj[i]["category_id"]+"</td>";
+//                    string += "<td><img onclick='ChangeUrl('/"+obj[i]["image_url"]+"')' id='myImg' src='/"+obj[i]["image_url"]+"' width='100'></td></tr>";
+                        string += "<td><img id='myImg' src='/"+obj[i]["image_url"]+"' width='100'></td></tr>";
+
+                    }
+//                   $("#searchTable").load( "/searchresult." +            "l");
+                    $("#searchTable").html(string);
+//                $("#searchTable").load( "./search.phtml" );
+
+                } else {
+                    alert("null");
+                }
+            });
+
+    }
+
+
+
+
+</script>
+
+
+<script type="application/javascript">
+    $( function() {
+        $("#birthday").datepicker({dateFormat:'yy-mm-dd'});
+
+    } );
+
+
+
+//    $(img).click(function(){
+//        alert("img");
+////    myWindow = window.open('', 'header', 'menubar=0', 'toolbar=0');
+////    myWindow.document.write("<img alt='ALTERNATIVE' src='"+$(this).src()+"' /><a href='javascript:close();'>Close window</a>");
+//    });
+
+
+
+
+    $(function()
+        {
+            $("#searchTable").tablesorter();
+
+        }
+    );
+</script>
+
+<style>
+    .searchTable tr:nth-child(3n+1) {
+        background-color: #eeeeee;
+    }
+    .searchTable tr:nth-child(3n+2) {
+        background-color: #dddddd;
+    }
+    .searchTable tr:nth-child(3n+3) {
+        background-color: #bbbbbb;
+    }
+    .searchTable tr:nth-child(0) {
+        background-color: #ffffff;
+    }
+
+
+</style>
+
+<!--onclick='ChangeUrl(&#39;/"+obj[i]["image_url"]+"&#39;)'-->

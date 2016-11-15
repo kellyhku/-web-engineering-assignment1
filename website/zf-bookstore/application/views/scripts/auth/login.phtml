@@ -1,0 +1,24 @@
+<div>
+
+    <?php
+//    session_start();
+//    if (!empty($_session['id'])) {
+////        $this->_redirect('/members/edit/id/'.$_session['id']);
+//        header("Location: /members/edit/id/"+$_session['id']); /* Redirect browser */
+//        exit();
+//    }
+    ?>
+
+    <?php
+    $this->loginForm ->setAction($this->url());
+    echo $this->loginForm ;
+
+
+    ?></div>
+<p><a href="<?php echo $this->url(
+        array(
+            'controller' => 'members',
+            'action'     => 'insert',
+            'default',
+            true)) ?>">Add a new Member</a></p>
+
